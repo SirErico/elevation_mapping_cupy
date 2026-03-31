@@ -1,0 +1,204 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROS2 Jazzy Release &mdash; elevation_mapping_cupy  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Elevation mapping cupy" href="../python/elevation_mapping.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            elevation_mapping_cupy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/tutorial.html">Tutorial</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usage/plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/parameters.html">Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/semantics.html">Semantics</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Jazzy Release</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#release-target">Release Target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-changed-since-v2-0-0">What Changed Since <code class="docutils literal notranslate"><span class="pre">v2.0.0</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#known-issues">Known Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#release-checklist">Release Checklist</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">elevation_mapping_cupy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ROS2 Jazzy Release</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/release_notes/jazzy_release.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ros2-jazzy-release">
+<h1>ROS2 Jazzy Release<a class="headerlink" href="#ros2-jazzy-release" title="Link to this heading"></a></h1>
+<section id="release-target">
+<h2>Release Target<a class="headerlink" href="#release-target" title="Link to this heading"></a></h2>
+<p>This page tracks the current ROS2/Jazzy release state for the <code class="docutils literal notranslate"><span class="pre">ros2</span></code> branch.</p>
+<ul class="simple">
+<li><p>Branch: <code class="docutils literal notranslate"><span class="pre">ros2</span></code></p></li>
+<li><p>Release version: <code class="docutils literal notranslate"><span class="pre">v2.1.0</span></code></p></li>
+<li><p>ROS2 maintainer: Lorenzo Terenzi</p></li>
+<li><p>Release surface:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">elevation_mapping_cupy</span></code> Python/CuPy node</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">semantic_sensor</span></code> package</p></li>
+<li><p>TurtleBot3 example launches</p></li>
+<li><p>semantic image and semantic pointcloud example launches</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="what-changed-since-v2-0-0">
+<h2>What Changed Since <code class="docutils literal notranslate"><span class="pre">v2.0.0</span></code><a class="headerlink" href="#what-changed-since-v2-0-0" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Restored the ROS2 semantic workflow and brought back the
+<code class="docutils literal notranslate"><span class="pre">semantic_sensor</span></code> package.</p></li>
+<li><p>Fixed the semantic image ingestion path in <code class="docutils literal notranslate"><span class="pre">elevation_mapping_node.py</span></code>.</p></li>
+<li><p>Added ROS2 branch CI on the self-hosted NVIDIA runner using the
+<code class="docutils literal notranslate"><span class="pre">moleworks_ros</span></code> container.</p></li>
+<li><p>Revalidated the example launch surface instead of leaving semantic launches
+as stale files.</p></li>
+<li><p>Rewrote the user-facing documentation for ROS2 Jazzy.</p></li>
+</ul>
+</section>
+<section id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">v2.1.0</span></code> release validation was executed on <code class="docutils literal notranslate"><span class="pre">starship</span></code> inside the
+GPU-enabled <code class="docutils literal notranslate"><span class="pre">moleworks_ros</span></code> container.</p>
+<p>Executed checks:</p>
+<ul class="simple">
+<li><p>semantic image runtime smoke</p></li>
+<li><p>semantic pointcloud runtime smoke</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PYTEST_DISABLE_PLUGIN_AUTOLOAD=1</span> <span class="pre">pytest</span> <span class="pre">sensor_processing/semantic_sensor/test</span> <span class="pre">-q</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">test</span> <span class="pre">--packages-select</span> <span class="pre">elevation_mapping_cupy</span></code></p></li>
+</ul>
+<p>Observed result:</p>
+<ul class="simple">
+<li><p>24 tests</p></li>
+<li><p>0 errors</p></li>
+<li><p>0 failures</p></li>
+<li><p>0 skipped</p></li>
+</ul>
+</section>
+<section id="known-issues">
+<h2>Known Issues<a class="headerlink" href="#known-issues" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Some container images do not ship <code class="docutils literal notranslate"><span class="pre">torchvision</span></code>. CI installs a matching
+wheel at runtime.</p></li>
+<li><p>The integration test still logs <code class="docutils literal notranslate"><span class="pre">rclpy.shutdown</span> <span class="pre">already</span> <span class="pre">called</span></code> during
+teardown, but the test passes.</p></li>
+<li><p>A real GPU is still required at runtime. A CUDA userspace image without a
+loaded NVIDIA host driver is not enough.</p></li>
+</ul>
+</section>
+<section id="release-checklist">
+<h2>Release Checklist<a class="headerlink" href="#release-checklist" title="Link to this heading"></a></h2>
+<p>The branch is ready to tag once the maintainer is satisfied with the current
+state.</p>
+<p>Before pushing the release tag:</p>
+<ul class="simple">
+<li><p>confirm the docs build on GitHub Actions</p></li>
+<li><p>confirm the self-hosted ROS2 CI still passes on <code class="docutils literal notranslate"><span class="pre">ros2</span></code></p></li>
+<li><p>create the Git tag for <code class="docutils literal notranslate"><span class="pre">v2.1.0</span></code></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../python/elevation_mapping.html" class="btn btn-neutral float-left" title="Elevation mapping cupy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Takahiro Miki, Gian Erni.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
