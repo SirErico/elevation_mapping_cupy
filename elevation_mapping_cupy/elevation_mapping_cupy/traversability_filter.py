@@ -9,9 +9,39 @@ def get_filter_torch(*args, **kwargs):
     import torch
     import torch.nn as nn
 
+    def _resolve_device(requested_device):
+        if isinstance(requested_device, torch.device):
+            return requested_device
+        if requested_device in (None, "auto"):
+            requested_device = "cuda"
+        if isinstance(requested_device, str) and requested_device.startswith("cuda"):
+            if not torch.cuda.is_available():
+                return torch.device("cpu")
+            try:
+                # Avoid unsupported CUDA architectures by checking against PyTorch build targets.
+                arch_list = [
+                    int(arch.split("_")[1])
+                    for arch in torch.cuda.get_arch_list()
+                    if arch.startswith("sm_") and arch.split("_")[1].isdigit()
+                ]
+                if arch_list:
+                    capability = cp.cuda.Device().compute_capability
+                    if isinstance(capability, tuple):
+                        capability = capability[0] * 10 + capability[1]
+                    else:
+                        capability = int(str(capability))
+                    if capability < min(arch_list):
+                        return torch.device("cpu")
+            except Exception:
+                # If detection fails, keep existing behavior and let torch handle runtime checks.
+                pass
+            return torch.device(requested_device)
+        return torch.device(requested_device)
+
     class TraversabilityFilter(nn.Module):
         def __init__(self, w1, w2, w3, w_out, device="cuda", use_bias=False):
             super(TraversabilityFilter, self).__init__()
+            self.device = _resolve_device(device)
             self.conv1 = nn.Conv2d(1, 4, 3, dilation=1, padding=0, bias=use_bias)
             self.conv2 = nn.Conv2d(1, 4, 3, dilation=2, padding=0, bias=use_bias)
             self.conv3 = nn.Conv2d(1, 4, 3, dilation=3, padding=0, bias=use_bias)
@@ -26,7 +56,10 @@ def get_filter_torch(*args, **kwargs):
         def __call__(self, elevation_cupy):
             # Convert cupy tensor to pytorch.
             elevation_cupy = elevation_cupy.astype(cp.float32)
-            elevation = torch.as_tensor(elevation_cupy, device=self.conv1.weight.device)
+            if self.device.type == "cuda":
+                elevation = torch.as_tensor(elevation_cupy, device=self.device)
+            else:
+                elevation = torch.from_numpy(cp.asnumpy(elevation_cupy)).to(self.device)
 
             with torch.no_grad():
                 out1 = self.conv1(elevation.view(-1, 1, elevation.shape[0], elevation.shape[1]))
@@ -39,11 +72,12 @@ def get_filter_torch(*args, **kwargs):
                 # out = F.concat((out1, out2, out3), axis=1)
                 out = self.conv_out(out.abs())
                 out = torch.exp(-out)
-                out_cupy = cp.asarray(out)
+                out_cupy = cp.asarray(out) if self.device.type == "cuda" else cp.asarray(out.cpu().numpy())
 
             return out_cupy
 
-    traversability_filter = TraversabilityFilter(*args, **kwargs).cuda().eval()
+    traversability_filter = TraversabilityFilter(*args, **kwargs)
+    traversability_filter = traversability_filter.to(traversability_filter.device).eval()
     return traversability_filter
 
 

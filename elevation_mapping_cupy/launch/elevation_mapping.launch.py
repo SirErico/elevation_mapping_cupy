@@ -65,7 +65,10 @@ def generate_launch_description():
             core_param_path,
             robot_param_path,
             {'use_sim_time': use_sim_time}
-        ]
+        ],
+        remappings=[
+            ('/tf', '/j100_0000/tf'),
+            ('/tf_static', '/j100_0000/tf_static')]
     )
 
     rviz_node = Node(
