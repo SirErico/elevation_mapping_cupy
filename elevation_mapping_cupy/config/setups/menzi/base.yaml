@@ -2,7 +2,7 @@
   ros__parameters:
     subscribers:
       front_cam:
-        topic_name: '/ouster_points_self_filtered'
+        topic_name: '/sensors/lidar3d_0/points'
         data_type: pointcloud
 
     publishers:

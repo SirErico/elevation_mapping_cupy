@@ -6,8 +6,30 @@ import cupy as cp
 
 
 def get_filter_torch(*args, **kwargs):
+    import warnings
     import torch
     import torch.nn as nn
+
+    def _select_torch_device():
+        if not torch.cuda.is_available():
+            return torch.device("cpu")
+
+        try:
+            device_cc = torch.cuda.get_device_capability(0)
+            supported_arches = set(torch.cuda.get_arch_list())
+            required_arch = f"sm_{device_cc[0]}{device_cc[1]}"
+            if supported_arches and required_arch not in supported_arches:
+                warnings.warn(
+                    f"PyTorch build does not support CUDA arch {required_arch}; falling back to CPU for traversability filter."
+                )
+                return torch.device("cpu")
+        except Exception as exc:
+            warnings.warn(
+                f"Failed to validate CUDA capability ({exc}); falling back to CPU for traversability filter."
+            )
+            return torch.device("cpu")
+
+        return torch.device("cuda")
 
     class TraversabilityFilter(nn.Module):
         def __init__(self, w1, w2, w3, w_out, device="cuda", use_bias=False):
@@ -26,7 +48,11 @@ def get_filter_torch(*args, **kwargs):
         def __call__(self, elevation_cupy):
             # Convert cupy tensor to pytorch.
             elevation_cupy = elevation_cupy.astype(cp.float32)
-            elevation = torch.as_tensor(elevation_cupy, device=self.conv1.weight.device)
+            device = self.conv1.weight.device
+            if device.type == "cuda":
+                elevation = torch.as_tensor(elevation_cupy, device=device)
+            else:
+                elevation = torch.from_numpy(cp.asnumpy(elevation_cupy)).to(device)
 
             with torch.no_grad():
                 out1 = self.conv1(elevation.view(-1, 1, elevation.shape[0], elevation.shape[1]))
@@ -39,11 +65,15 @@ def get_filter_torch(*args, **kwargs):
                 # out = F.concat((out1, out2, out3), axis=1)
                 out = self.conv_out(out.abs())
                 out = torch.exp(-out)
-                out_cupy = cp.asarray(out)
+                if out.is_cuda:
+                    out_cupy = cp.from_dlpack(out)
+                else:
+                    out_cupy = cp.asarray(out.numpy())
 
             return out_cupy
 
-    traversability_filter = TraversabilityFilter(*args, **kwargs).cuda().eval()
+    device = _select_torch_device()
+    traversability_filter = TraversabilityFilter(*args, **kwargs).to(device).eval()
     return traversability_filter
 
 
