@@ -23,6 +23,15 @@ inpainting:
   layer_name: "inpaint"
   extra_params:
     method: "telea"                           # telea or ns
+# Compute slope in degrees from elevation gradients
+slope_filter:
+  enable: True
+  fill_nan: True
+  is_height_layer: False
+  layer_name: "slope"
+  extra_params:
+    input_layer_name: "elevation"
+    resolution: 0.1
 # Apply smoothing for inpainted layer
 erosion:
   enable: True

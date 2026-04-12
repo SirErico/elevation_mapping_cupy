@@ -1,7 +1,14 @@
+# Jackal J100 elevation mapping config.
+# Overrides map_frame to 'map' (core_param.yaml defaults to 'base_link')
+# so the GridMap is expressed in the fixed map frame, compatible with Nav2.
 /elevation_mapping_node:
   ros__parameters:
+    map_frame: 'map'
+    base_frame: 'base_link'
+    corrected_map_frame: 'map'
+
     subscribers:
-      front_cam:
+      lidar3d:
         topic_name: '/j100_0000/sensors/lidar3d_0/points'
         data_type: pointcloud
 
